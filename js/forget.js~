@@ -1,0 +1,277 @@
+/* Validation */
+var name_result = 1;
+var pass_result = 1;
+
+var result1 = 1;
+
+
+jQuery(document).ready( function()
+{
+
+	function email_validate(e)
+	{
+		var eid = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+		if(e.match(eid))  
+	      	{  
+	      		return 0;
+	      	}  
+	      	else  
+	      	{  		
+			return 1;
+		}
+	}	
+
+	function test(str)
+	{
+		var re = /^[a-zA-Z0-9!@#$%^&*]{4,8}$/;
+		if(str.match(re))  
+	  	{  
+	  		return 0;
+	  	}  
+	  	else  
+	  	{  		
+			return 1;
+		}
+	}
+
+	jQuery("#reg_name").blur(function() 
+	{
+
+		var user = jQuery("#reg_name").val();	
+		if(user=="")
+		{
+			name_result=1;
+			jQuery("#name_error").text("Please Enter User Name");     
+			return false;
+		}
+		else	
+		{
+			name_result=0;
+			jQuery("#name_error").text("");     
+		}
+	});
+
+	
+	jQuery("#reg_pass").blur(function() 
+	{
+
+		var user = jQuery("#reg_pass").val();
+		if(test(user) )
+       	{
+       		jQuery("#pass_error").text("Please Enter 4 to 8 characters"); 	
+			pass_result=1;
+      	 	return false;
+  		}
+		else
+		{	
+			if(user=="")
+			{
+				pass_result=1;
+				jQuery("#pass_error").text("Please Enter Password"); 
+				return false;    
+			}
+			else	
+			{
+				pass_result=0;
+				jQuery("#pass_error").text("");     
+			}
+		}
+	});
+
+	jQuery("#reg_email").blur(function()
+	{
+		var e = jQuery("#reg_email").val();	
+		result1 = email_validate(e);
+		if(result1==0)  
+	    {  
+			jQuery("#email_error").text("");     
+	    }  
+      	else  
+      	{  		
+			jQuery("#email_error").text("Please Enter Valid ID");  
+			return false;   
+		}
+	});
+
+	jQuery("#join").click(function()
+	{
+
+		var user = jQuery("#reg_name").val();
+		if(user!="")
+		{
+			name_result=0;
+		}
+
+		var user = jQuery("#reg_pass").val();
+		if(user!="")
+		{
+			pass_result=0;
+		}
+
+		var e = jQuery("#reg_email").val();	
+		if(e!="")
+		{
+			email_result=0;
+		}
+
+		if(name_result==1)
+		{
+			jQuery("#name_error").text("Please Enter User Name"); 
+			return false;
+		}
+		if(pass_result==1)
+		{
+			jQuery("#pass_error").text("Please Enter Password");     
+			return false;
+		}
+		if(result1==1)
+		{
+			jQuery("#email_error").text("Please Enter Email Id"); 
+			return false;
+		}
+		if(name_result==0 && pass_result==0 && result1==0)
+		{
+			jQuery("#pass_error").text("");     
+			jQuery("#name_error").text("");  
+			jQuery("#email_error").text("");   
+		}		
+		
+	});
+
+});
+
+
+jQuery(document).ready( function()
+{
+
+	function email_validate(e)
+	{
+		var eid = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+		if(e.match(eid))  
+	      	{  
+	      		return 0;
+	      	}  
+	      	else  
+	      	{  		
+			return 1;
+		}
+	}	
+
+	function test(str)
+	{
+		var re = /^[a-zA-Z0-9!@#$%^&*]{4,8}$/;
+		if(str.match(re))  
+	  	{  
+	  		return 0;
+	  	}  
+	  	else  
+	  	{  		
+			return 1;
+		}
+	}
+
+	jQuery("#user_name").blur(function() 
+	{
+
+		var user = jQuery("#user_name").val();	
+		if(user=="")
+		{
+			name_result=1;
+			jQuery("#name_error").text("Please Enter User Name");     
+			return false;
+		}
+		else	
+		{
+			name_result=0;
+			jQuery("#name_error").text("");     
+		}
+	});
+
+	
+	jQuery("#pass").blur(function() 
+	{
+
+		var user = jQuery("#pass").val();
+		if(test(user) )
+       	{
+       		jQuery("#pass_error").text("Please Enter 4 to 8 characters"); 	
+			pass_result=1;
+      	 	return false;
+  		}
+		else
+		{	
+			if(user=="")
+			{
+				pass_result=1;
+				jQuery("#pass_error").text("Please Enter Password"); 
+				return false;    
+			}
+			else	
+			{
+				pass_result=0;
+				jQuery("#pass_error").text("");     
+			}
+		}
+	});
+
+	jQuery("#email").blur(function()
+	{
+		var e = jQuery("#email").val();	
+		result1 = email_validate(e);
+		if(result1==0)  
+	    {  
+			jQuery("#email_error").text("");     
+	    }  
+      	else  
+      	{  		
+			jQuery("#email_error").text("Please Enter Valid ID");  
+			return false;   
+		}
+	});
+
+	jQuery("#forget-password").click(function()
+	{
+
+		var user = jQuery("#user_name").val();	
+		if(user!="")
+		{
+			name_result=0;
+		}
+
+		var user = jQuery("#pass").val();
+		if(user!="")
+		{
+			pass_result=0;
+		}
+
+		var e = jQuery("#email").val();	
+		if(e!="")
+		{
+			email_result=0;
+		}
+		if(name_result==1)
+		{
+			jQuery("#name_error").text("Please Enter User Name"); 
+			return false;
+		}
+		if(pass_result==1)
+		{
+			jQuery("#pass_error").text("Please Enter Password");     
+			return false;
+		}
+		if(result1==1)
+		{
+			jQuery("#email_error").text("Please Enter Email Id"); 
+			return false;
+		}
+		if(name_result==0 && pass_result==0 && result1==0)
+		{
+			jQuery("#pass_error").text("");     
+			jQuery("#name_error").text("");  
+			jQuery("#email_error").text("");   
+		}		
+		
+	});
+
+});
+

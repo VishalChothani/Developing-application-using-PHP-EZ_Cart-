@@ -1,0 +1,26 @@
+#mysignup
+{
+	width:300px;
+}
+#mysignup h1
+{
+	text-align:center;
+	color:#029DDF;
+}
+#mysignup hr
+{
+	width:300px;
+}
+#mysignup img
+{
+	margin-left:70px;
+}
+#mysignup label
+{	
+	text-align:left;
+	margin-left:43px;
+}
+#mysignup input
+{
+	margin-left:43px;
+}

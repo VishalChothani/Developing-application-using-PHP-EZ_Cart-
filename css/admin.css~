@@ -1,0 +1,244 @@
+body
+{
+	background:#F0F0F0;
+	font-family:arial;
+}
+.page
+{
+	background: none repeat scroll 0 0 #FFFFFF;
+	margin-left:9%;
+	float:left;
+	height:auto;
+	width:80%;
+}
+.container
+{
+	width:100%;
+	
+
+}
+
+.nav_bar{
+	background:#4B3F57;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+	height:40px;
+	margin:0px auto;
+}
+.nav_bar h1{
+	color:#FFFFFF;
+	float:left;
+	 margin-left: 35%;
+	margin-bottom : 0px;
+}
+.nav_bar h2{
+	color:#FFFFFF;
+	float:right;
+	margin-right:13%;
+}
+.profile_div
+{
+	border:2px solid #F0F0F0;
+	float:left;
+	clear:left;
+	width:25%;
+	margin-left:4%;
+	margin-top: 10.5%;
+	margin-bottom:2%;
+}
+.profile_div1
+{
+	border:2px solid #F0F0F0;
+	float:left;
+	
+	width:10%;
+	margin-left:15%;
+	margin-top: 10.5%;
+	margin-bottom:2%;
+}
+.profile_div1 span
+{
+	
+	
+	width:100%;
+}
+.profile_div1 ul li
+{text-align:center;
+color:black;
+font-size:15px;
+font-family:arial;
+	margin-left:-25px;
+	border-bottom:2px solid #F0F0F0;
+	width:100%;
+}
+.profile_div1 ul
+{	
+	list-style-type:none;
+	width:100%;
+}
+.profile_div2
+{
+	border:2px solid #F0F0F0;
+	float:left;
+	
+	width:17%;
+	
+	margin-top: 10.5%;
+	margin-bottom:2%;
+}
+.profile_div2 span
+{
+	
+	
+	width:100%;
+}
+.profile_div2 ul li
+{text-align:center;
+color:black;
+font-size:15px;
+font-family:arial;
+	margin-left:-25px;
+	border-bottom:2px solid #F0F0F0;
+	width:100%;
+}
+.profile_div2 ul
+{	
+	list-style-type:none;
+	width:100%;
+}
+.profile_div3home_page
+{
+	border:2px solid #F0F0F0;
+	float:left;
+	
+	width:17%;
+	
+	margin-top: 10.5%;
+	margin-bottom:2%;
+}
+
+.profile_div3 {
+    border: 2px solid #F0F0F0;
+    float: left;
+    margin-bottom: 2%;
+    margin-top: 10.5%;
+    width: 17%;
+}
+
+.profile_div3 span
+{
+	
+	
+	width:100%;
+}
+.profile_div3 ul li
+{text-align:center;
+color:black;
+font-size:15px;
+font-family:arial;
+	margin-left:-25px;
+	border-bottom:2px solid #F0F0F0;
+	width:100%;
+}
+.profile_div3 ul
+{	
+	list-style-type:none;
+	width:100%;
+}
+.profile_div1 h3
+{
+text-align:center;
+color:#4B3F57;
+margin-left:4%;
+}
+.profile_div2 h3
+{
+text-align:center;
+color:#4B3F57;
+margin-left:4%;
+}
+.profile_div3 h3
+{
+text-align:center;
+color:#4B3F57;
+margin-left:4%;
+}
+.profile_div ul
+{	
+	list-style-type:none;
+}
+.profile_div h3
+{
+color:#4B3F57;
+margin-left:4%;
+}
+hr
+{
+	margin-top:0px;
+}
+#prof_link1 a
+{
+	margin-top:8%;
+	margin-left:6%;
+	float:left;
+	font-size:15px;
+	font-weight:bold;
+}
+.profile_div form ul li input{
+margin-left:1%;
+width:90%;
+margin-top:3%;
+} 
+
+
+.time_info{
+
+float:left;
+margin-top:10%;
+}
+
+.time_info span{
+font-family:arial;
+font-size:20px;
+border-right:1px solid #F0F0F0;
+
+width:10%;
+}
+
+.time_info ul {
+list-style-type:none;
+
+}
+
+.time_info li
+{
+border:2px solid #F0F0F0;
+width:100%;
+padding-top:2%;
+padding-bottom:2%;
+}
+
+.home_page
+{
+	float : right;
+	height : 30px;
+	font-size: 18px;
+    margin-right: 3%;
+	color : #4B3F57;
+	
+}
+.nav_bar1{
+	background:#4B3F57;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+	height:70px;
+	margin:0px auto;
+	margin-top:52%;
+	width:100%;
+	
+}
+
+.home_link
+{
+	float : right;
+	margin-right : 20px;
+	margin-top : 20px;
+}

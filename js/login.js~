@@ -1,0 +1,334 @@
+/* Validation */
+var name_result = 1;
+var pass_result = 1;
+
+var pass_result1 = 1;
+var pass_result2 = 1;
+
+
+jQuery(document).ready( function()
+{
+
+	function email_validate(e)
+	{
+		var eid = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+		if(e.match(eid))  
+	      	{  
+	      		return 0;
+	      	}  
+	      	else  
+	      	{  		
+			return 1;
+		}
+	}	
+
+	function test(str)
+	{
+		var re = /^[a-zA-Z0-9!@#$%^&*]{4,8}$/;
+		if(str.match(re))  
+	  	{  
+	  		return 0;
+	  	}  
+	  	else  
+	  	{  		
+			return 1;
+		}
+	}
+
+	jQuery("#user_name").blur(function() 
+	{
+
+		var user = jQuery("#user_name").val();	
+		if(user=="")
+		{
+			name_result=1;
+			jQuery("#name_error").text("Please Enter User Name");   
+			return false;  
+		}
+		else	
+		{
+			name_result=0;
+			jQuery("#name_error").text("");     
+		}
+	});
+
+	
+	jQuery("#pass").blur(function() 
+	{
+
+		var user = jQuery("#pass").val();
+		if(test(user) )
+       	{
+       		jQuery("#pass_error").text("Please Enter 4 to 8 characters"); 	
+			pass_result=1;
+      	 	return false;
+  		}
+		else
+		{	
+			if(user=="")
+			{
+				pass_result=1;
+				jQuery("#pass_error").text("Please Enter Password"); 
+				return false;    
+			}
+			else	
+			{
+				pass_result=0;
+				jQuery("#pass_error").text("");     
+			}
+		}
+	});
+
+
+
+	jQuery("#login").click(function()
+	{
+
+		var user = jQuery("#user_name").val();	
+		if(user!="")
+		{
+			name_result=0;
+		}
+
+		var user = jQuery("#pass").val();
+		if(user!="")
+		{
+			pass_result=0;
+		}		
+
+		if(name_result==1)
+		{
+			jQuery("#name_error").text("Please Enter User Name"); 
+			return false;
+		}
+		if(pass_result==1)
+		{
+			jQuery("#pass_error").text("Please Enter Password");     
+			return false;
+		}
+		if(name_result==0 && pass_result==0)
+		{
+			jQuery("#pass_error").text("");     
+			jQuery("#name_error").text("");     
+		}		
+		
+	});
+
+});
+
+
+jQuery(document).ready( function()
+{
+
+	function email_validate(e)
+	{
+		var eid = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+		if(e.match(eid))  
+	      	{  
+	      		return 0;
+	      	}  
+	      	else  
+	      	{  		
+			return 1;
+		}
+	}	
+
+	function test(str)
+	{
+		var re = /^[a-zA-Z0-9!@#$%^&*]{4,8}$/;
+		if(str.match(re))  
+	  	{  
+	  		return 0;
+	  	}  
+	  	else  
+	  	{  		
+			return 1;
+		}
+	}
+
+	jQuery("#old_pass1").blur(function() 
+	{
+
+		var user = jQuery("#old_pass1").val();
+		if(test(user) )
+       	{
+       		jQuery("#old_pass_error").text("Please Enter 4 to 8 characters"); 	
+			pass_result1=1;
+      	 	return false;
+  		}
+		else
+		{	
+			if(user=="")
+			{
+				pass_result1=1;
+				jQuery("#old_pass_error").text("Please Enter Password"); 
+				return false;    
+			}
+			else	
+			{
+				pass_result1=0;
+				jQuery("#old_pass_error").text("");     
+			}
+		}
+	});
+
+	
+	jQuery("#new_pass1").blur(function() 
+	{
+
+		var user = jQuery("#new_pass1").val();
+		if(test(user) )
+       	{
+       		jQuery("#new_pass_error").text("Please Enter 4 to 8 characters"); 	
+			pass_result2=1;
+      	 	return false;
+  		}
+		else
+		{	
+			if(user=="")
+			{
+				pass_result2=1;
+				jQuery("#new_pass_error").text("Please Enter Password"); 
+				return false;    
+			}
+			else	
+			{
+				pass_result2=0;
+				jQuery("#new_pass_error").text("");     
+			}
+		}
+	});
+
+
+
+	jQuery("#update-admin").click(function()
+	{
+
+		if(pass_result1==1)
+		{
+			jQuery("#old_pass_error").text("Please Enter Proper Password"); 
+			return false;
+		}
+		if(pass_result2==1)
+		{
+			jQuery("#new_pass_error").text("Please Enter Proper Password");  
+			return false;   
+		}
+		if(name_result==0 && pass_result==0)
+		{
+			jQuery("#old_pass_error").text("");     
+			jQuery("#new_pass_error").text("");     
+		}		
+		
+	});
+
+});
+
+jQuery(document).ready( function()
+{
+
+	function email_validate(e)
+	{
+		var eid = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+		if(e.match(eid))  
+	      	{  
+	      		return 0;
+	      	}  
+	      	else  
+	      	{  		
+			return 1;
+		}
+	}	
+
+	function test(str)
+	{
+		var re = /^[a-zA-Z0-9!@#$%^&*]{4,8}$/;
+		if(str.match(re))  
+	  	{  
+	  		return 0;
+	  	}  
+	  	else  
+	  	{  		
+			return 1;
+		}
+	}
+
+	jQuery("#old_pass").blur(function() 
+	{
+
+		var user = jQuery("#old_pass").val();
+		if(test(user) )
+       	{
+       		jQuery("#old_pass_error").text("Please Enter 4 to 8 characters"); 	
+			pass_result1=1;
+      	 	return false;
+  		}
+		else
+		{	
+			if(user=="")
+			{
+				pass_result1=1;
+				jQuery("#old_pass_error").text("Please Enter Password"); 
+				return false;    
+			}
+			else	
+			{
+				pass_result1=0;
+				jQuery("#old_pass_error").text("");     
+			}
+		}
+	});
+
+	
+	jQuery("#new_pass").blur(function() 
+	{
+
+		var user = jQuery("#new_pass").val();
+		if(test(user) )
+       	{
+       		jQuery("#new_pass_error").text("Please Enter 4 to 8 characters"); 	
+			pass_result2=1;
+      	 	return false;
+  		}
+		else
+		{	
+			if(user=="")
+			{
+				pass_result2=1;
+				jQuery("#new_pass_error").text("Please Enter Password"); 
+				return false;    
+			}
+			else	
+			{
+				pass_result2=0;
+				jQuery("#new_pass_error").text("");     
+			}
+		}
+	});
+
+
+
+	jQuery("#update-user").click(function()
+	{
+
+		if(pass_result1==1)
+		{
+			jQuery("#old_pass_error").text("Please Enter Proper Password"); 
+			return false;
+		}
+		if(pass_result2==1)
+		{
+			jQuery("#new_pass_error").text("Please Enter Proper Password");    
+			return false; 
+		}
+		if(name_result==0 && pass_result==0)
+		{
+			jQuery("#old_pass_error").text("");     
+			jQuery("#new_pass_error").text("");     
+		}		
+		
+	});
+
+});
+
+

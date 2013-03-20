@@ -1,0 +1,43 @@
+.admin_option{
+
+clear:left;
+margin-left:40%;
+}
+
+.admin_option input[type="submit"]{
+
+margin-left:2%;
+}
+.del_success
+{
+
+display:none;
+margin-bottom: 49%;
+    margin-left: 26%;
+    margin-top: 10%;
+
+}.nav_bar1 a
+{
+	font-size:25px;
+	margin-left:47%;
+	margin-top:1%;
+	margin-bottom:1%;
+	color:white;	
+	float:left;
+	
+}
+.nav_bar1{
+	background:#0090D2;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+	height:70px;
+	margin:0px auto;
+	margin-top:1%;
+	width:100%;
+	
+}
+.admin_head {
+color:#4B3F57;
+float:left;
+margin-bottom:2%;
+
+}

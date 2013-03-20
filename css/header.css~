@@ -1,0 +1,21 @@
+body
+{
+	background:#F0F0F0;
+	font-family:arial;
+}
+
+header
+{
+	background-color: #4B3F57;
+    border-bottom: 2px solid black;
+	height:auto;
+}
+
+header h1
+{
+	color:#FFFFFF;
+	text-align:center;
+	margin : 0px;
+	padding : 10px 0px;
+}
+

@@ -1,0 +1,266 @@
+body
+{
+	background:#F0F0F0;
+	font-family:arial;
+}
+.page
+{
+	background: none repeat scroll 0 0 #FFFFFF;
+    	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+	margin-left:9%;
+	float:left;
+	height:auto;
+	width:80%;
+	padding-bottom: 10px;
+}
+.container
+{
+	width:100%;
+	
+
+}
+.nav_bar{
+background:#4B3F57;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+	height:40px;
+	margin:0px auto;
+}
+.nav_bar h1{
+	color:#FFFFFF;
+	text-align:center;
+}
+textarea
+{
+	resize:none;
+}
+.container1
+{
+	width:70%;
+	margin:0 auto;
+}
+
+
+
+.span6
+{
+	margin-left: 0px;
+}
+
+.form-wrapper
+{
+	margin: 0 auto;
+	width: 600px;
+}
+
+form
+{
+	margin-top: 20px;
+}
+
+section label{
+	text-align: left;
+	}
+
+section fieldset legend
+{
+	margin-left: 10px;
+	padding-left: 0px;
+	font-size: 12px;
+}
+.nav_bar1 a
+{
+	font-size:25px;
+	margin-left:47%;
+	margin-top:1%;
+	margin-bottom:1%;
+	color:white;	
+	float:left;
+	
+}
+input[type="file"]
+{
+	margin-left:5%;
+}
+section.hobbies-section
+{
+	margin-top: 15px;
+}
+
+section fieldset
+{
+
+	width: 68%;
+}
+
+section textarea
+{
+	clear:both;
+	float:left;
+
+	margin-left: 5%;
+	margin-top:30px;
+	margin-bottom:30px;
+	width: 85%;
+}
+
+select
+{
+	width: 20%;
+}
+
+.gender-paragraph label, fieldset label
+{
+	cursor: pointer;
+	margin-right: 8px;
+}
+
+fieldset input[type="checkbox"]
+{
+	margin-bottom: 14px;
+
+}
+
+input[type = "submit"]
+{
+	float:left;
+	margin-left: 27%;
+	margin-top:2%;
+}
+ input[type = "reset"]
+{
+	float:left;
+	margin-left: 5%;
+	margin-top:2%;
+}
+
+input
+{
+	width: 60%;
+}
+
+label
+{
+	float: none;
+	width: 25%;
+}
+
+hr
+{
+	clear: both;
+	border-bottom: 1px solid #ccc;
+}
+
+h2
+{
+	color:white;
+	clear: both;
+	text-align: center;
+}
+
+.user_information_table
+{
+	margin-top: 20px;
+}
+
+.default
+{.home_link
+{
+	float : right;
+	margin-right : 20px;
+	margin-top : 20px;
+}
+
+.home_link1
+{
+	margin-top : 15px;
+}
+	display: block;
+}
+
+.container_mid
+{
+	height:50px;
+	background-color:#0090D2;
+	width:100%;
+}
+
+#array_form fieldset
+{
+	margin:0;
+	padding:0;
+}
+.about_move
+{
+	margin-left:5%;
+}
+.nav_bar1{
+	background:#0090D2;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+	height:70px;
+	margin:0px auto;
+	margin-top:65%;
+	
+}
+.update_success
+{
+
+display:none;
+margin-bottom: 10%;
+    margin-left: 20%;
+    margin-top: 10%;
+
+}
+
+.insert_success
+{
+display:none;
+margin-bottom: 10%;
+    margin-left: 20%;
+    margin-top: 10%;
+}
+
+.submit_pro_btn{
+
+clear: left;
+    float: left;
+    margin-left: 17.5%;
+    margin-top: 2%;
+    width: 34%;
+}
+
+.img_error_msg_id{
+float:right;
+margin-left:20%;
+margin-top:-14%;
+}
+
+.home_page , .log_out
+{
+	float : right;
+	height : 30px;
+	font-size: 18px;
+    margin-right: 3%;
+	color : #4B3F57;
+	
+}
+
+.home_link
+{
+	float : right;
+	margin-right: 0;
+    margin-top: 11px;
+    width: 50%;
+}
+
+.home_link1
+{
+	margin-top : 15px;
+	width : 10%;
+	clear : both;
+	float : right;
+}
+
+.log_out
+{
+	margin-top : 10px;
+}

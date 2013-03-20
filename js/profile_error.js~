@@ -1,0 +1,140 @@
+/* Validation */
+var name_result = 1;
+var namel_result = 1;
+var result = 1;
+var result1 = 1;
+
+jQuery(document).ready( function()
+{
+	
+	function str_validate(str)
+	{
+		var letters = /^[A-Za-z\s]+$/;  	
+		if(str.match(letters))  
+	      	{  
+	      		return 0;
+	      	}  
+	      	else  
+	      	{  		
+			return 1;
+		}
+	};
+
+	function num_validate(num)
+	{
+		var number = /^([0-9]{10})$/;  	
+		if(num.match(number))  
+	      	{  
+	      		return 0;
+	      	}  
+	      	else  
+	      	{  		
+			return 1;
+		}
+	};
+
+	function email_validate(email)
+	{
+		var eid = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+		if(email.match(eid))  
+	      	{  
+	      		return 0;
+	      	}  
+	      	else  
+	      	{  		
+			return 1;
+		}
+	};
+
+
+	jQuery("#user_name").blur(function() 
+	{
+
+		var user = jQuery("#user_name").val();	
+		name_result = str_validate(user);
+		if(name_result==0)  
+	      	{
+			jQuery("#name_error").text("");     
+	      	}  
+	      	else  
+	      	{  		
+			jQuery("#name_error").text("Please Enter characters only");     
+		}
+	});
+
+	jQuery("#userl_name").blur(function() 
+	{
+
+		var user = jQuery("#userl_name").val();	
+		namel_result = str_validate(user);
+		if(namel_result==0)  
+	      	{
+			jQuery("#namel_error").text("");     
+	      	}  
+	      	else  
+	      	{  		
+			jQuery("#namel_error").text("Please Enter characters only");     
+		}
+	});
+
+
+	jQuery("#phone_no").blur(function()
+	{
+		var number = jQuery("#phone_no").val();	
+		result = num_validate(number);
+		if(result==0)  
+	      	{  
+			jQuery("#phone_error").text("");     
+	      	}  
+	      	else  
+	      	{  		
+			jQuery("#phone_error").text("Please Enter Valid Mobile Number");     
+		}
+	});
+
+
+	jQuery("#email").blur(function()
+	{
+		var e = jQuery("#email").val();	
+		result1 = email_validate(e);
+		if(result1==0)  
+	      	{  
+			jQuery("#email_error").text("");     
+	      	}  
+	      	else  
+	      	{  		
+			jQuery("#email_error").text("Please Enter Valid ID");     
+		}
+	});
+
+
+	jQuery("#submit_form").click(function()
+	{
+		
+		if(name_result==1)
+		{
+			jQuery("#name_error").text("Please Enter characters only");     
+		}
+		if(namel_result==1)
+		{
+			jQuery("#namel_error").text("Please Enter characters only");     
+		}
+		if(result==1)
+		{
+			jQuery("#phone_error").text("Please Enter Valid Mobile Number");     
+		}
+		if(result1==1)
+		{
+			jQuery("#email_error").text("Please Enter Valid ID");     
+		}
+		if(name_result==0 && namel_result==0 && result==0 && result1==0)
+		{
+			jQuery("#name_error").text("");     
+			jQuery("#namel_error").text("");     
+			jQuery("#phone_error").text("");     
+			jQuery("#email_error").text("");     			
+		}
+	});
+
+});
+
