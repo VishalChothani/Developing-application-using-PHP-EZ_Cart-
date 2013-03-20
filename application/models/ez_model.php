@@ -34,7 +34,7 @@ class ez_model extends CI_Model
   }
   
   
-  function signup_model($data)
+  public function signup_model($data)
   {
     $this->db->set('username', $data["username"]);
     $this->db->set('password', $data["password"]);
@@ -52,10 +52,30 @@ class ez_model extends CI_Model
       return 0;
     }
     
-   // $this->db->insert("users",$data);
-			
   }
+   
   
+  public function insert_products($data)
+    {
+      $this->db->set('product_name', $data["product_name"]);
+      $this->db->set('product_image', $data["product_img"]);
+      $this->db->set('product_price', $data["product_price"]);
+      $this->db->set('product_desc', $data["product_desc"]);
+      $this->db->set('no_of_product', $data["no_of_product"]);
+      $this->db->set('category_id', $data["product_category"]);
+      
+       $this->db->insert('product'); 
+
+
+    }
   
+    public function delete_products($data)
+    {
+        $array = array('category_id' => $data["cat_id"]);
+        $this->db->where($array); 
+        $query = $this->db->get('product');
+        return $query->result();
+    }
+        
 };
 ?>
