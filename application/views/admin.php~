@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Ez Shopping Cart Welcome Page</title>
+
+
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css" type="text/css" >
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/header.css" type="text/css" >
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/footer.css" type="text/css" >
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.css" type="text/css" >
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/dropdown.css" type="text/css" >
+
+
+    <script src="<?php echo base_url(); ?>js/jQuery_lib.js" language="javascript"></script>
+
+    <script src="<?php echo base_url(); ?>js/bootstrap.js" language="javascript"></script>
+    <script src="<?php echo base_url(); ?>js/dropKick/jquery.dropkick-1.0.0.js" language="javascript"></script>
+    <script src="<?php echo base_url(); ?>js/jquery.cycle2.min.js"></script>
+    <script src="<?php echo base_url(); ?>js/jquery.cycle2.tile.min.js"></script>
+
+
+    <script type="text/javascript">
+      $(function() {
+        //We initially hide the all dropdown menus
+        $('#dropdown_nav li').find('.sub_nav').hide();
+
+        //When hovering over the main nav link we find the dropdown menu to the corresponding link.
+        $('#dropdown_nav li').hover(function() {
+          //Find a child of 'this' with a class of .sub_nav and make the beauty fadeIn.
+          $(this).find('.sub_nav').fadeIn(100);
+        }, function() {
+          //Do the same again, only fadeOut this time.
+          $(this).find('.sub_nav').fadeOut(50);
+        });
+      });
+    
+      $(document).ready(function() 
+      {
+        
+        //--------------------select GENERIC categories ajax--------------------------//
+        
+        $(".ajax_generic_menu").click(function () 
+        { 
+         
+          $(".generic_category_list").empty();
+         // var cat_id=$('.product_category').val();
+
+          var temp = "http://192.168.75.107/EZ_Cart/index.php/welcome/generic_category_list_ajax";
+	
+		
+          $.ajax({
+            type: "POST",
+           // data:{'cat_id':cat_id},
+            url:temp,
+            //dataType: 'json',
+            success: function(output_string) {
+		           	
+              //alert(output_string);
+              $(".generic_category_list").append(output_string);
+              $(".generic_category_list_product").append(output_string);
+              
+              
+            }
+            });
+          });
+          
+          
+         //--------------------select SUB categories ajax--------------------------//
+        
+        $(".ajax_category_menu").click(function () 
+        { 
+         
+          $(".sub_category_list").empty();
+         // var cat_id=$('.product_category').val();
+
+          var temp = "http://192.168.75.107/EZ_Cart/index.php/welcome/sub_category_list_ajax";
+	
+		
+          $.ajax({
+            type: "POST",
+           // data:{'cat_id':cat_id},
+            url:temp,
+            //dataType: 'json',
+            success: function(output_string) {
+		           	
+              //alert(output_string);
+              $(".sub_category_list").append(output_string);
+              
+              
+            }
+            });
+          });
+          
+          
+        
+        
+  //-------------------------- Product ajax----------------------      
+        
+        
+        // Update Products 
+        $(".generic_category_list_product").change(function () 
+        { 
+          
+          $(".sub_category_list_product").empty();
+          var cat_id=$('.generic_category_list_product').val();
+          
+          var temp = "http://192.168.75.107/EZ_Cart/index.php/welcome/ajax_sub_gen_category_list";
+	
+		
+          $.ajax({
+            type: "POST",
+            data:{'cat_id':cat_id},
+            url:temp,
+            //dataType: 'json',
+            success: function(output_string) {
+		           	
+              //alert(output_string);
+              $(".sub_category_list_product").append(output_string);
+               
+              
+            }
+            });
+          });
+          // Update
+        $(".sub_category_list_product").change(function () 
+        { 
+         
+          $(".product_category_list").empty();
+          var cat_id=$('.sub_category_list_product').val();
+
+          var temp = "http://192.168.75.107/EZ_Cart/index.php/welcome/ajax_delete_products";
+	
+		
+          $.ajax({
+            type: "POST",
+            data:{'cat_id':cat_id},
+            url:temp,
+            //dataType: 'json',
+            success: function(output_string) {
+		           	
+              //alert(output_string);
+              $(".product_category_list").append(output_string);
+              
+              
+            }
+            });
+          });
+          
+          // Udpate Products
+          // Gettting Product information
+          $(".product_category_list").change(function () 
+        { 
+          
+           //alert('dsf');
+          
+          var product_name=$('.product_category_list').val();
+          alert(product_name);
+         var temp = "http://192.168.75.107/EZ_Cart/index.php/welcome/ajax_update_products1";
+	
+		
+          $.ajax({
+            type: "POST",
+            data:{'product_name':product_name},
+            url:temp,
+            dataType: 'json',
+            success: function(output_string) {
+              alert(output_string);
+              var i=0;
+              //for(var i in output_string)
+                //{
+                //alert(output_string[i].product_image);
+                  $('#update_product_price').val(output_string[i].product_price);
+                  $('#update_product_desc').val(output_string[i].product_desc);
+                  $('#update_no_of_product').val(output_string[i].no_of_product);
+                  $('#update_product_img').val("http://192.168.75.107/EZ_Cart/images/product/"+output_string[i].product_image);
+                //}
+                
+              
+              
+              
+            },
+           error: function(ts) { alert(ts.responseText) }
+            });
+          });
+          
+          
+          //Delete Product
+          
+          
+          $(".ajax_generic_menu_del").click(function () 
+        { 
+         
+          $(".generic_category_list_del").empty();
+         // var cat_id=$('.product_category').val();
+
+          var temp = "http://192.168.75.107/EZ_Cart/index.php/welcome/generic_category_list_ajax";
+	
+		
+          $.ajax({
+            type: "POST",
+           // data:{'cat_id':cat_id},
+            url:temp,
+            //dataType: 'json',
+            success: function(output_string) {
+		           	
+              //alert(output_string);
+              $(".generic_category_list_del").append(output_string);
+              $(".generic_category_list_product_del").append(output_string);
+              
+              
+            }
+            });
+          });
+          
+          
+          $(".generic_category_list_product_del").change(function () 
+        { 
+          
+          $(".sub_category_list_product_del").empty();
+          var cat_id=$('.generic_category_list_product_del').val();
+          
+          var temp = "http://192.168.75.107/EZ_Cart/index.php/welcome/ajax_sub_gen_category_list";
+	
+		
+          $.ajax({
+            type: "POST",
+            data:{'cat_id':cat_id},
+            url:temp,
+            //dataType: 'json',
+            success: function(output_string) {
+		           	
+             
+              $(".sub_category_list_product_del").append(output_string);
+               
+              
+            }
+            });
+          });
+          
+          
+           $(".sub_category_list_product_del").change(function () 
+        { 
+         
+          $(".product_category_list_del").empty();
+          var cat_id=$('.sub_category_list_product_del').val();
+
+          var temp = "http://192.168.75.107/EZ_Cart/index.php/welcome/ajax_delete_products";
+	
+		
+          $.ajax({
+            type: "POST",
+            data:{'cat_id':cat_id},
+            url:temp,
+            //dataType: 'json',
+            success: function(output_string) {
+		           	
+              //alert(output_string);
+              $(".product_category_list_del").append(output_string);
+              
+              
+            }
+            });
+          });
+          
+          
+      });
+          
+         
+
+    </script>
+
+
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="header-top">
+        <div class="container">
+          <div class="after_login pull-left">
+            <h3>Welcome <?php echo $username; ?></h3>
+          </div>
+          <div class="pull-right">
+            <nav class="navbar clear-right pull-right">
+              <ul class="nav nav-pills">                <!-- Header NavBar -->
+                <li>
+                  <a href="" title="home" class="active">Home</a>
+                </li>
+
+                <li>
+                  <a href="" title="About" class="">About us</a>
+                </li>
+
+                <li>
+                  <a href="<?php echo base_url(); ?>index.php/welcome/logout" title="Logout" class="">Log Out</a>
+                </li>
+                <li>
+                  <a href="" title="my-profile" class="">My Profile</a>
+                </li>
+
+                <li>
+                  <a href="" title="Contact" class="">Contact us</a>
+                </li>
+
+                <li class="after_login">
+                  <a href="" title="edit_profile" class="">Edit Profile</a>
+                </li>
+
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="header-bottom">
+        <div class="container">
+          <div class="logo">        <!-- Header Logo and Search -->
+            <a href="startpage.php" title="home" class="pull-left"><img src="<?php echo base_url(); ?>images/logo.jpg" alt="Logo" /></a>
+            <a href="startpage.php" title="home" class="pull-left"><h1 class="clear-left">Cart</h1></a>
+          </div>
+
+          <div class="search pull-right">
+            <form method="post" action="#" class="pull-right">
+              <label class="pull-left">
+                <input type="text" value="" placeholder="Search in Product" name="search">
+              </label>
+              <label class="pull-left">
+                <input type="submit" name="submit" class="submit" />
+              </label>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="container ">
+       <nav class="products-menu">
+          <ul id="dropdown_nav">
+
+
+            <?php foreach ($result_generic_category as $n) { ?>
+
+
+              <li>
+                <a href='<?php echo base_url(); ?>welcome/product_collection/<?php echo $n['generic_category_name']; ?>'>
+                  <?php {
+                    echo $n['generic_category_name'];
+                  } ?>
+                </a>
+                <ul  class="sub_nav">
+                  <?php
+                  $flag = 0;
+                  foreach ($result_sub_category as $p) {
+
+                    if ($n['generic_category_id'] == $p['rel_gen_category_id']) {
+                      $flag = 1;
+                      ?>
+                      <li>
+                        <a href="<?php echo base_url(); ?>welcome/xyz/<?php echo $p['category_name']; ?>" >
+                          <?php {
+                            echo $p['category_name'];
+                          }
+                          ?>
+                        </a>
+
+                      </li>
+                      <?php
+                    }
+                  }
+                  ?>
+                </ul> 
+              </li>
+
+
+            <?php } ?>
+
+
+          </ul>
+
+        </nav>
+      </div>
+    </header>
+
+    <section class="adjust">
+      <div class="container">
+        <div class="span10 clearfix pull-left">
+          <div class="tabbable tabs-left">
+            <ul class="nav nav-tabs">
+              <li id="1" ><a href="#lA" data-toggle="tab">Add Category</a></li>
+              <li id="2" class="ajax_generic_menu"><a href="#lB" data-toggle="tab">Update Category</a></li>
+              <li id="3" class="ajax_generic_menu"><a href="#lC" data-toggle="tab">Delete Category</a></li>
+              
+              <li id="4" class="ajax_generic_menu"><a href="#lD" data-toggle="tab">Add Sub Category</a></li>
+              <li id="5" class="ajax_category_menu"><a href="#lE" data-toggle="tab">Update Sub Category</a></li>
+              <li id="6" class="ajax_category_menu" ><a href="#lF" data-toggle="tab">Delete Sub Category</a></li>
+              
+              <li id="7" class="ajax_generic_menu"><a href="#lG" data-toggle="tab">Add Products</a></li>
+              <li id="8" class="ajax_generic_menu"><a href="#lH" data-toggle="tab">Update Products</a></li>
+              <li id="9" class="ajax_generic_menu_del"><a href="#lI" data-toggle="tab">Delete Products</a></li>
+              <li id="10" class="active"><a href="#lJ" data-toggle="tab">Manage Users</a></li>
+            </ul>
+            <div class="tab-content">
+              
+    <!----------------------------Generic Category Management------------------------------------->      
+         <!---add generic category-->
+              
+             <div class="tab-pane" id="lA">
+                <div class="form-horizontal" >
+                  <?php echo form_open_multipart('welcome/admin_insert_generic'); ?>
+
+                  
+                  <div class="control-group">
+                    <label class="control-label">Name</label>
+                    <div class="controls">
+                      <input type="text" id="product_name" name="insert_generic_category_name" placeholder="Category Name">
+                    </div>
+                  </div>
+                  
+
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" id="insert_product" name="insert_generic" value="Add">
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                
+              </div>
+         
+         
+         
+           <!---update generic category-->
+              
+             <div class="tab-pane" id="lB" >
+                <div class="form-horizontal" >
+                  <?php echo form_open_multipart('welcome/admin_update_generic'); ?>
+
+                  <div class="control-group">
+                    <label class="control-label">Select Category</label>
+                    <div class="controls">
+                      <select name="generic_category" class="generic_category_list">
+                       
+                        </select>
+                    </div>
+
+                  </div>
+                  
+                  
+                  
+                  <div class="control-group">
+                    <label class="control-label">Update Category Name</label>
+                    <div class="controls">
+                      <input type="text" id="product_name" name="update_generic_category_name" placeholder="Category Name">
+                    </div>
+                  </div>
+                  
+
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" id="insert_product" name="insert_generic" value="Update">
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                
+              </div>
+           
+            <!---delete generic category-->
+           
+           <div class="tab-pane" id="lC" >
+                <div class="form-horizontal" >
+                  <?php echo form_open_multipart('welcome/admin_delete_generic'); ?>
+
+                  <div class="control-group">
+                    <label class="control-label">Select Category</label>
+                    <div class="controls">
+                      <select name="generic_category" class="generic_category_list">
+                       
+                        </select>
+                    </div>
+
+                  </div>
+                  
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" id="insert_product" name="insert_generic" value="Delete">
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                
+              </div>
+           
+           
+           
+         
+         
+         
+         
+         
+         
+                   
+    <!---------------------------- Category Management------------------------------------->      
+         <!---add category-->
+              
+              <div class="tab-pane" id="lD" >
+                <div class="form-horizontal" >
+                  <?php echo form_open_multipart('welcome/admin_insert_category'); ?>
+
+                  <div class="control-group">
+                    <label class="control-label">Select Category</label>
+                    <div class="controls">
+                      <select name="generic_category" class="generic_category_list">
+                       
+                        </select>
+                    </div>
+
+                  </div>
+                  
+                  <div class="control-group">
+                    <label class="control-label">Name of Sub Category</label>
+                    <div class="controls">
+                      <input type="text" id="product_name" name="insert_category_name" placeholder="Sub Category Name">
+                    </div>
+                  </div>
+                  
+
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" id="insert_product" name="insert_category" value="Add">
+                    </div>
+                  </div>
+                  
+                  </form>
+                </div>
+                
+              </div>
+         
+         <!---update category-->
+              
+              <div class="tab-pane" id="lE" >
+                <div class="form-horizontal" >
+                  <?php echo form_open_multipart('welcome/admin_update_category'); ?>
+
+                  <div class="control-group">
+                    <label class="control-label">Select Sub Category</label>
+                    <div class="controls">
+                      <select name="sub_category" class="sub_category_list">
+                       
+                        </select>
+                    </div>
+
+                  </div>
+                  
+                  <div class="control-group">
+                    <label class="control-label">Update Sub Category</label>
+                    <div class="controls">
+                      <input type="text" id="product_name" name="update_category_name" placeholder="Sub Category Name">
+                    </div>
+                  </div>
+                  
+
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" id="update_category" name="update_category" value="Update">
+                    </div>
+                  </div>
+                  
+                  </form>
+                </div>
+                
+              </div>
+              
+         
+               <!---delete sub category-->
+           
+           <div class="tab-pane" id="lF" >
+                <div class="form-horizontal" >
+                  <?php echo form_open_multipart('welcome/admin_delete_category'); ?>
+
+                  <div class="control-group">
+                    <label class="control-label">Select Sub Category</label>
+                    <div class="controls">
+                      <select name="sub_category" class="sub_category_list">
+                       
+                        </select>
+                    </div>
+
+                  </div>
+                  
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" id="delete_product" name="delete_generic" value="Delete">
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                
+              </div>
+           
+         
+         
+         <!----------------------------Product Management------------------------------------->      
+         <!---add product-->
+              <div class="tab-pane" id="lG">
+                <div class="form-horizontal" >
+                  <?php echo form_open_multipart('welcome/admin_insert'); ?>
+
+                 <div class="control-group">
+                    <label class="control-label">Select Generic Category</label>
+                    <div class="controls">
+                      <select name="generic_category_list_product" class="generic_category_list_product">
+                        
+                      </select>
+                    </div>
+
+                  </div>
+                
+                  <div class="control-group">
+                    <label class="control-label">Select Category</label>
+                    <div class="controls">
+                      <select name="sub_category_list_product" class="sub_category_list_product">
+                        
+                      </select>
+                    </div>
+
+                  </div>
+
+
+                  <div class="control-group">
+                    <label class="control-label">Name</label>
+                    <div class="controls">
+                      <input type="text" id="product_name" name="insert_product_name" placeholder="Product Name">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label">Price</label>
+                    <div class="controls">
+                      <input type="text" id="product_price" name="insert_product_price" placeholder="Product Price">
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <label class="control-label">No of Products</label>
+                    <div class="controls">
+                      <input type="text" id="no_of_product" name="insert_no_of_product" placeholder="Product Count">
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <label class="control-label">Upload Image</label>
+                    <div class="controls">
+                      <input type="file" id="product_img" name="userfile" placeholder="Products Description">
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <label class="control-label">Products Description</label>
+                    <div class="controls">
+                      <input type="text" id="product_desc" name="insert_product_desc" placeholder="Products Description">
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" id="insert_product" name="insert_product" value="Add">
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                
+              </div>
+         
+           <!---update product-->
+              <div class="tab-pane " id="lH">
+                <?php echo form_open_multipart('welcome/admin_update'); ?>
+
+                <div class="control-group">
+                    <label class="control-label">Select Generic Category</label>
+                    <div class="controls">
+                      <select name="generic_category_list_product" class="generic_category_list_product">
+                        
+                      </select>
+                    </div>
+
+                  </div>
+                
+                  <div class="control-group">
+                    <label class="control-label">Select Category</label>
+                    <div class="controls">
+                      <select name="sub_category_list_product" class="sub_category_list_product">
+                        
+                      </select>
+                    </div>
+
+                  </div>
+
+                  <div class="control-group">
+                      <label class="control-label">Select Product</label>
+                      <div class="controls">
+                        <select name="product_category_list" class="product_category_list">
+                        </select>
+                      </div>
+                    </div>
+                  <div class="control-group">
+                    <label class="control-label">Price</label>
+                    <div class="controls">
+                      <input type="text" id="update_product_price" name="update_product_price" placeholder="Product Price">
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <label class="control-label">No of Products</label>
+                    <div class="controls">
+                      <input type="text" id="update_no_of_product" name="update_no_of_product" placeholder="Product Count">
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <label class="control-label">Upload Image</label>
+                    <div class="controls">
+                      <input type="file" id="update_product_img" name="userfile" placeholder="Products Description">
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <label class="control-label">Products Description</label>
+                    <div class="controls">
+                      <input type="text" id="update_product_desc" name="update_product_desc" placeholder="Products Description">
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" id="update_product" name="update_product" value="Update">
+                    </div>
+                  </div>
+                </form>
+              </div>
+           
+           
+             <!---delete product-->
+              <div class="tab-pane" id="lI">
+                <div class="form-horizontal" >
+                  <?php echo form_open_multipart('welcome/admin_delete'); ?>
+
+                  <div class="control-group">
+                    <label class="control-label">Select Generic Category</label>
+                    <div class="controls">
+                      <select name="generic_category_list_product" class="generic_category_list_product_del">
+                        
+                      </select>
+                    </div>
+
+                  </div>
+                
+                  <div class="control-group">
+                    <label class="control-label">Select Category</label>
+                    <div class="controls">
+                      <select name="sub_category_list_product" class="sub_category_list_product_del">
+                        
+                      </select>
+                    </div>
+
+                  </div>
+
+                  <div class="control-group">
+                      <label class="control-label">Select Product</label>
+                      <div class="controls">
+                        <select name="product_category_list" class="product_category_list_del">
+                        </select>
+                      </div>
+                    </div>
+
+
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" id="delete_product" name="delete_product" value="Delete">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="tab-pane active" id="lJ" >
+            
+                <div class="clearfix">
+                      <p><strong>Users Table Contents :- </strong></p>
+                      <div>
+                          <div class="myTable">
+                              <span class="id"> ID </span>
+                              <span class="username"> User Name </span>
+                              <span class="email"> Email </span>
+                              <span class="level"> Level </span>
+                          </div>
+                          <?php 
+
+                          foreach($result_set as $row)
+                          {
+                            if($row->banned == 0 && $row->level==2)
+                                    {
+
+                          ?> <div class="myTable">
+                                  <span class="id"> <?php echo $row->id; ?> </span>
+                                  <span class="username"> <?php echo $row->username; ?> </span>
+                                  <span class="email"> <?php echo $row->email; ?> </span>
+                                  <span class="level"> <?php echo $row->level; ?> </span>
+                              </div>
+                          <?php }} ?>
+                      </div>
+                  </div>
+
+
+
+
+                  <div class="clear-left pull-left">
+                      <form action="http://192.168.75.107/NetBeans_CI/index.php/login_system/delete_user" method="post" class="clearfix pull-left"> 
+                          <p><strong>Delete User :- </strong></p>
+                          <p class="clearfix pull-left"> 
+                              <label>Username:</label>
+                              <select name="admin_delete_name" class="clearfix pull-left">
+                                  <?php foreach($result_set as $row)
+                                  {
+                                    if($row->banned == 0  && $row->level==2)
+                                    {
+                                  ?>
+                                  <option> <?php echo $row->username; ?>  </option>
+                              <?php }} ?>
+                              </select>
+                          </p>
+
+                          <input type="submit" class="btn submit_btn pull-left delete-btn" name="delete-user" value="Delete"/>
+                      </form>
+                  </div>
+
+
+                  <div class="clear-left pull-left">
+                      <p><strong>Ban User :- </strong></p>
+                      <form action="http://192.168.75.107/NetBeans_CI/index.php/login_system/ban_user" method="post" class="clearfix pull-left"> 
+                          <p class="clearfix pull-left"> 
+                              <label>Username:</label>
+                              <select name="admin_ban_name" class="clearfix pull-left">
+                                  <?php 
+                                  foreach($result_set as $row)
+                                  {
+                                    if($row->banned == 0  && $row->level==2)
+                                    {
+                                  ?>
+                                  <option> <?php echo $row->username; ?>  </option>
+                              <?php }} ?>
+                              </select>
+                          </p>
+
+                          <input type="submit" class="btn submit_btn pull-left delete-btn" name="ban-user" value="Ban User"/>
+                      </form>
+                  </div>
+
+                  <div class="clear-left pull-left">
+                      <p><strong>UnBan User :- </strong></p>
+                      <form action="http://192.168.75.107/NetBeans_CI/index.php/login_system/unban_user" method="post" class="clearfix pull-left"> 
+                          <p class="clearfix pull-left"> 
+                              <label>Username:</label>
+                              <select name="admin_unban_name" class="clearfix pull-left">
+                                  <?php 
+                                  foreach($result_set as $row)
+                                  {
+                                    if($row->banned == 1)
+                                    {
+                                  ?>
+                                  <option> <?php echo $row->username; ?>  </option>
+                              <?php }} ?>
+                              </select>
+                          </p>
+
+                          <input type="submit" class="btn submit_btn pull-left delete-btn" name="unban-user" value="Un-Ban User"/>
+                      </form>
+                  </div>
+
+                  <div class="clear-left">
+                      <p><strong>Banned Users Table Contents :- </strong></p>
+                      <div>
+                          <div class="myTable">
+                              <span class="id"> ID </span>
+                              <span class="username"> User Name </span>
+                              <span class="email"> Email </span>
+
+                          </div>
+                          <?php 
+
+                          foreach($result_set as $row)
+                          {
+                            if($count==0)
+                            {
+                              ?> <span>  </span>
+                              <span> No Records Found </span>
+                              <span>  </span>
+                              <?php
+                              break;
+                            }
+                            if($row->banned == 1)
+                                    {
+
+                          ?> <div class="myTable">
+                                  <span class="id"> <?php echo $row->id; ?> </span>
+                                  <span class="username"> <?php echo $row->username; ?> </span>
+                                  <span class="email"> <?php echo $row->email; ?> </span>
+
+                              </div>
+                          <?php }} ?>
+                      </div>
+                  </div>
+
+                  <div class="update_user_level clear-left pull-left">
+                      <p><strong>Delete Banned User :- </strong></p>
+                      <form  action="http://192.168.75.107/NetBeans_CI/index.php/login_system/delete_ban_user" method="post" class="clearfix pull-left"> 
+                          <p class="clearfix pull-left"> 
+                              <label>Username:</label>
+                              <select name="delete_ban_name" class="clearfix pull-left">
+                                  <?php 
+                                  foreach($result_set as $row)
+                                  {
+
+                                    if($row->banned == 1)
+                                    {
+                                  ?>
+                                  <option> <?php echo $row->username; ?>  </option>
+                              <?php }} ?>
+                              </select>
+                          </p>
+
+                          <input type="submit" class="btn submit_btn pull-left delete-btn" name="delete-ban-user" value="Delete Ban User"/>
+                      </form>
+                  </div>
+                
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <footer class="clearfix pull-left">
+      <div class="container">
+        <p class="copyright">
+          Copyright 2012 for
+          <strong><a href="startpage.php" title="home" >EZCart.com</a></strong>
+
+        </p>
+
+      </div>
+
+    </footer>
+
+  </body>
+</html>

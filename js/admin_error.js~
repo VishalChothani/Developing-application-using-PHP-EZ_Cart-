@@ -1,0 +1,16 @@
+/* Validation */
+var name_result = 1;
+var pass_result = 1;
+var repass_result = 1;
+var email_result = 1;
+var add_result = 1;
+
+
+jQuery(document).ready( function()
+{
+	jQuery("#insert_generic").click(function(){
+		var user = jQuery("#password").val();
+	});
+});
+
+

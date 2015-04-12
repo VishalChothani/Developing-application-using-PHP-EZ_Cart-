@@ -1,0 +1,19 @@
+#username_error , #re-password_error , #email_error , #address_error , #password_error
+{
+	color : red;
+	margin-left : 20%;
+}
+
+#username_error p , #re-password_error p, #email_error p, #address_error p, #password_error p
+{
+	color : red;
+	
+}
+
+input
+{
+	margin : 0px;
+}
+
+
+

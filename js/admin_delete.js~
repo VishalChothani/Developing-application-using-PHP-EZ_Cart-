@@ -1,0 +1,56 @@
+$(document).ready(function() {
+	
+	$("#state_name").change(function () { 
+		 var state=$('#state_name').val();
+
+		var  host = window.location.pathname;   
+                var host_ip =window.location.hostname;
+                var i=0;
+	   
+		var n=host.split("/");
+		var temp=n[0]+"/"+n[1]+"/"+n[2]+"/"+n[3]+"/"+n[4]+"/"+'get_county';
+	
+		
+            $.ajax({
+            type: "POST",
+	    data:{'state'tate},
+            url:temp,
+          //dataType: 'json',
+            success: function(output_string) {
+		           	
+		$('#county_name option').remove();
+		$('#county_name').append(output_string);
+		}
+          });
+		
+	});
+07:23:28  IST
+cb: });07:23:33  IST
+cb: public function get_county()
+	{
+		
+		$state = $_POST['state'];
+		$table_name="hf_states";
+		$data="";
+		$query = $this->db->query("SELECT * FROM ".$table_name." WHERE states_state_name= '".$state."' ");
+		if ($query->num_rows() > 0)
+        	{
+           		foreach ($query->result() as $row) 
+            		{
+                		$state_id = $row->state_id;
+                	}
+		}
+		$table_name="hf_county";
+		
+		$query = $this->db->query("SELECT * FROM ".$table_name." WHERE county_state_id= '".$state_id."' ");
+		if ($query->num_rows() > 0)
+        	{
+           		foreach ($query->result() as $row) 
+            		{
+                	array_push($county,$row->county_id);
+			$data .= '<option>'.$row->county_county_name.'<option/>';	
+            		}
+		}
+		echo json_encode($data);  
+
+	}

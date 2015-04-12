@@ -1,0 +1,45 @@
+/* Validation */
+var result = 1;
+
+
+jQuery(document).ready( function()
+{
+
+	function num_validate(num)
+	{
+		var number = /^([0-9])$/;  	
+		if(num.match(number))  
+	      	{  
+	      		return 0;
+	      	}  
+	      	else  
+	      	{  		
+			return 1;
+		}
+	};
+
+
+	jQuery("#buy").click(function()
+	{
+		var number = jQuery(".product_count").val();	
+		result = num_validate(number);
+		if(number=="")
+		{
+			jQuery("#bill_error").text("Please Enter Numbers");     
+		}
+		else
+		{
+			if(result==0)  
+		      	{  
+				jQuery("#bill_error").text("");     
+		      	}  
+		      	else  
+		      	{  		
+				jQuery("#bill_error").text("Please Enter Only Number");     
+			}
+		}
+	});
+
+});
+
+

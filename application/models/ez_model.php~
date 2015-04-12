@@ -1,0 +1,667 @@
+<?php
+
+class ez_model extends CI_Model {
+
+  public function get_all_category() {
+    $query = $this->db->get('category');
+    return $query->result();
+  }
+
+  public function get_all_cart() {
+    $query = $this->db->get('cart');
+    return $query->result();
+  }
+  
+  public function count_category() {
+
+    $query = $this->db->query('SELECT * FROM category;');
+
+    return $query->num_rows();
+  }
+
+  public function get_all() {
+    $query = $this->db->get('users');
+    return $query->result();
+  }
+  
+  public function get_all_orders() {
+    $query = $this->db->get('view_order');
+    return $query->result();
+  }
+
+  public function get_all_generic_category() {
+    $query = $this->db->get('generic_category');
+    return $query->result();
+  }
+
+  public function count_generic_category() {
+
+    $query = $this->db->query('SELECT * FROM generic_category;');
+
+    return $query->num_rows();
+  }
+
+  public function get_all_products() {
+    $query = $this->db->get('product');
+    return $query->result();
+  }
+
+  public function check_register($username, $email) {
+    $query = $this->db->get('users');
+
+    foreach ($query->result() as $row) {
+      if ($row->username == $username || $row->email == $email) {
+        return 1;
+      }
+    }
+    return 0;
+  }
+
+  public function signup_model($data) {
+    $this->db->set('username', $data["username"]);
+    $this->db->set('password', $data["password"]);
+    $this->db->set('email', $data["email"]);
+    $this->db->set('address', $data["address"]);
+    $this->db->set('gender', $data["gender"]);
+    $this->db->set('languages', $data["language"]);
+
+    $checking = $this->check_register($data["username"], $data["email"]);
+    if ($checking == 0) {
+      $this->db->insert('users');
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  public function insert_products($data) {
+    $this->db->set('product_name', $data["product_name"]);
+    $this->db->set('product_image', $data["product_img"]);
+    $this->db->set('product_price', $data["product_price"]);
+    $this->db->set('product_desc', $data["product_desc"]);
+    $this->db->set('no_of_product', $data["no_of_product"]);
+    $this->db->set('category_id', $data["sub_category_list_product"]);
+    $this->db->set('generic_category_id', $data["generic_category_list_product"]);
+
+
+    $result = $this->db->insert('product');
+    return $result;
+    
+  }
+
+  public function insert_sub_category($data) {
+
+
+    $this->db->set('category_name', $data["sub_category"]);
+    $this->db->set('generic_category_id', $data["generic_category"]);
+
+    $result = $this->db->insert("category");
+    return $result;
+  }
+
+  public function insert_generic_category($data) {
+
+    $this->db->set('generic_category_name', $data["generic_category"]);
+
+    $result = $this->db->insert("generic_category");
+    //echo $result;
+    return $result;
+  }
+
+  public function update_generic($data) {
+    
+    
+    $array = array('generic_category_id' => $data["old_generic_name"]);
+    $this->db->where($array);
+
+    $result1 = $this->db->get('generic_category');
+    foreach ($result1->result() as $value) {
+      $data["old_generic_name"] = $value->generic_category_name;
+    }
+    
+    $this->db->set('generic_category_name', $data["new_generic_name"]);
+    $array = array('generic_category_name' => $data["old_generic_name"]);
+    $this->db->where($array);
+
+    $result = $this->db->update('generic_category');    
+    return $result;
+  }
+
+  public function update_sub_category($data) {
+
+    $this->db->set('category_name', $data["new_generic_name"]);
+
+    $array = array('category_name' => $data["old_generic_name"]);
+    $this->db->where($array);
+
+    $result = $this->db->update('category');
+    return $result;
+  }
+
+  public function delete_generic($data) {
+   
+    $flag=0;
+    $generic_category_id = $data["generic_name"];
+   
+    $result_set = $this->get_all_products();
+    foreach ($result_set as $value) {
+      
+      if($value->generic_category_id == $generic_category_id)
+      {
+        $flag=1;
+        return 0;
+        break;
+      }
+    }
+    if($flag==0)
+    {
+      $array3 = array('generic_category_id' => $data["generic_name"]);
+      $this->db->where($array3);
+      $result = $this->db->delete('generic_category');
+      return $result;
+    }
+    
+   
+  }
+
+ 
+  //--------------------------password---------------------
+  function pass_check_model($usename,$email){
+      $query = $this->db->get('users');
+      foreach ($query->result() as $value) {
+          if(($value->username== $username)&& ($value->email== $email)){
+      
+          return 1;    
+              
+          
+          }
+      }
+      return 0;
+  }
+  //----------------------------password----------------
+
+
+
+  public function delete_sub($data) {
+
+   
+        $flag=0;
+       $array = array('category_name' => $data["sub_name"]);
+    $query = $this->db->get_where('category', $array);
+
+    foreach ($query->result() as $value) {
+      $category_id = $value->category_id;
+    }
+    
+    
+    
+    $result_set = $this->get_all_products();
+    foreach ($result_set as $value) {
+      
+      if($value->category_id == $category_id)
+      {
+        $flag=1;
+        return 0;
+        break;
+      }
+    }
+    if($flag==0)
+    {
+      $array3 = array('category_id' => $category_id);
+      $this->db->where($array3);
+      $result = $this->db->delete('category');
+      return $result;
+    }
+
+  }
+
+  public function update_products($data) {
+    if ($data["product_img"] != "<p>You did not select a file to upload.</p>") {
+      $this->db->set('product_image', $data["product_img"]);
+      $this->db->set('product_price', $data["product_price"]);
+      $this->db->set('product_desc', $data["product_desc"]);
+      $this->db->set('no_of_product', $data["no_of_product"]);
+    } else {
+      $this->db->set('product_price', $data["product_price"]);
+      $this->db->set('product_desc', $data["product_desc"]);
+      $this->db->set('no_of_product', $data["no_of_product"]);
+    }
+
+    $array = array('product_name' => $data["product_name"]);
+    $this->db->where($array);
+
+    $result = $this->db->update('product');
+    return $result;
+  }
+
+  public function ajax_update_model($data) {
+
+    $array = array('product_name' => $data["product_name"]);
+    $this->db->where($array);
+    $query = $this->db->get('product');
+    return $query->result();
+  }
+
+  public function delete_products_name($data) {
+    $array = array('category_id' => $data["cat_id"]);
+    $this->db->where($array);
+    $query = $this->db->get('product');
+    return $query->result();
+  }
+
+  public function generic_category_list() {
+    $query = $this->db->get('generic_category');
+    return $query->result();
+  }
+
+  public function sub_category_list() {
+    $query = $this->db->get('category');
+    return $query->result();
+  }
+
+  public function sub_gen_category_list($data) {
+    $array = array('generic_category_id' => $data["cat_id"]);
+    $this->db->where($array);
+    $query = $this->db->get('category');
+  
+    return $query->result();
+  }
+
+  public function admin_delete_products($data) {
+    $array = array('product_name' => $data["product_name"]);
+    $this->db->where($array);
+    $result = $this->db->delete('product');
+    return $result;
+  }
+
+  public function count1() {
+    $array = array('banned' => 0);
+    $this->db->where($array);
+    $query = $this->db->query('SELECT * FROM users where banned=1;');
+
+    return $query->num_rows();
+  }
+
+  public function product_collection_model($data) {
+   
+    if(!is_numeric($data["product_name"]))
+    {
+    $array = array('category_name' => $data["product_name"]);
+    $this->db->where($array);
+    $query = $this->db->get('category');
+    if ($query->num_rows() > 0) {
+     
+      foreach ($query->result() as $value) {
+        $data['category_id'] = $value->category_id;
+      }
+      $array = array('category_id' => $data["category_id"]);
+      $this->db->where($array);
+      $query = $this->db->get('product');
+      $i = 0;
+      $data = "";
+      foreach ($query->result() as $value) {
+        $data[$i]['category_id'] = $value->category_id;
+        $data[$i]['generic_category_id'] = $value->generic_category_id;
+        $data[$i]['product_name'] = $value->product_name;
+        $data[$i]['product_image'] = $value->product_image;
+        $data[$i]['product_price'] = $value->product_price;
+        $i++;
+      }
+      return $data;
+    } else {
+   
+      $array = array('generic_category_name' => $data["product_name"]);
+      $this->db->where($array);
+      $query = $this->db->get('generic_category');
+      
+        
+        foreach ($query->result() as $value) {
+          $data['category_id'] = $value->generic_category_id;
+         
+        }
+        $array = array('generic_category_id' => $data["category_id"]);
+        $this->db->where($array);
+        $query = $this->db->get('product');
+        $i = 0;
+        $data = "";
+        foreach ($query->result() as $value) {
+         
+          
+          $data[$i]['generic_category_id'] = $value->generic_category_id;
+          $data[$i]['category_id'] = $value->category_id;
+          $data[$i]['product_name'] = $value->product_name;
+          $data[$i]['product_image'] = $value->product_image;
+          $data[$i]['product_price'] = $value->product_price;
+         
+          
+          
+          $i++;
+        }
+        return $data;
+      
+      
+     }
+    }
+  }
+
+  public function checking($offset){
+    $result_set = $this->generic_category_list();
+    foreach ($result_set as $value) {
+      if($value->generic_category_name==$offset)
+      {
+        return 1;
+      }
+    }
+    
+    $result_set = $this->get_all_category();
+    foreach ($result_set as $value) {
+      if($value->category_name==$offset)
+      {
+        return 1;
+      }
+    }
+    return 0;
+  }
+
+
+  public function padination_get_products($category_id, $generic_category_id, $limit, $offset, $total) {
+    
+    $check = $this->checking($offset);
+    if (is_numeric($offset) || $check == 1) {
+    
+
+      if ($category_id != 0) {
+        if ($offset < $total) {
+
+          $query = $this->db->limit($limit, $offset);
+          $array = array('category_id' => $category_id);
+          $this->db->where($array);
+          $query = $this->db->get('product');
+        } else {
+          $array = array('category_id' => $category_id);
+          $this->db->where($array);
+          $query = $this->db->get('product');
+        }
+        if ($query->num_rows() > 0) {
+          foreach ($query->result() as $row) {
+            $data[] = $row;
+          }
+        } else {
+
+          $data[] = '';
+        }
+
+        return $data;
+      } else {
+        if ($offset < $total) {
+
+          $query = $this->db->limit($limit, $offset);
+          $array = array('generic_category_id' => $generic_category_id);
+          $this->db->where($array);
+          $query = $this->db->get('product');
+        } else {
+          $array = array('generic_category_id' => $generic_category_id);
+          $this->db->where($array);
+          $query = $this->db->get('product');
+        }
+        if ($query->num_rows() > 0) {
+          foreach ($query->result() as $row) {
+            $data[] = $row;
+          }
+        } else {
+
+          $data[] = '';
+        }
+
+        return $data;
+      }
+    } else {
+    
+      $data["category_id"] = 1;
+      $data[] = 'prasad';
+      return $data;
+    }
+  }
+
+  
+  public function insert_view_order($username,$address,$email,$product_name, $product_count){
+    
+     $this->db->set('username', $username);
+      $this->db->set('address', $address);
+       $this->db->set('email', $email);
+        $this->db->set('product_name', $product_name);
+         $this->db->set('product_count', $product_count);
+
+    $this->db->insert("view_order");
+    
+    
+  }
+  
+  
+  
+  
+  public function add_to_cart_model($product_name)
+  {
+    
+      
+    
+    $flag=0;
+    $query = $this->db->get('cart');
+
+    foreach ($query->result() as $row) {
+      if ($row->product_name == $product_name) {
+        $product_count=$row->product_count;
+        $product_count++;
+    
+        $array = array('product_name' => $product_name);
+    $this->db->where($array);
+        $this->db->set('product_count', $product_count);
+       $this->db->update("cart");
+        $flag=1;
+        break;
+      }
+    }
+    if($flag==0)
+    {
+       $array = array('product_name' => $product_name);
+      $this->db->where($array);
+      $query = $this->db->get('product');
+      foreach ($query->result() as $row) {
+        $product_price = $row->product_price;
+        break;
+      }
+       $this->db->set('product_name', $product_name);
+        $this->db->set('product_price', $product_price);
+       $this->db->insert("cart");
+    }
+  }
+  
+  
+  public function bill_cart($product_name, $product_count){
+    
+     $query = $this->db->get('cart');
+
+    foreach ($query->result() as $row) {
+      
+      if (($row->product_name == $product_name)) {
+        
+        if($row->product_count!= $product_count){
+          $array = array('product_name' => $product_name);
+    $this->db->where($array);
+        $this->db->set('product_count', $product_count);
+       $this->db->update("cart");
+          break;
+        }
+      }
+       
+    }
+  }
+  
+  public function searching($data)
+  {
+    $search = $data["search"];
+    $this->db->like('product_name', $search);
+     $query = $this->db->get('product');
+     //return $query->result();
+     if ($query->num_rows() > 0) {
+        return $query->result();
+} else {
+    $this->db->like('generic_category_name', $search);
+     $query = $this->db->get('generic_category');
+     if ($query->num_rows() > 0) {
+         foreach ($query->result() as $row) {
+     $generic_category_id = $row->generic_category_id;
+     }
+     $array = array('generic_category_id' => $generic_category_id);
+    $this->db->where($array);
+    $query = $this->db->get('product');
+ return $query->result();
+} else {
+  $this->db->like('category_name', $search);
+     $query = $this->db->get('category');
+      if ($query->num_rows() > 0) {
+     foreach ($query->result() as $row) {
+     $category_id = $row->category_id;
+     }
+     $array = array('category_id' => $category_id);
+    $this->db->where($array);
+    $query = $this->db->get('product');
+ return $query->result();
+      }
+      else
+      {
+        return $query->result();
+      }
+}
+    
+    
+    
+  }
+  }
+  
+  //---------------------------------------------------NEW--------------
+  public function user_update_model($data){
+      
+      
+    //$this->db->set('username', $data["username"]);
+    $this->db->set('email', $data["email"]);
+    $this->db->set('address', $data["address"]);
+    $this->db->set('gender', $data["gender"]);
+    $this->db->set('languages', $data["language"]);
+    
+     $array = array('username' => $data["username"]);
+       $this->db->where($array);
+      $this->db->update('users');
+     
+  }
+  
+  public function destroy_cart(){
+    $this->db->truncate('cart'); 
+  }
+  
+  public function cart_delete_database($product_name, $product_count){
+    
+     $query = $this->db->get('product');
+
+    foreach ($query->result() as $row) {
+      if ($row->product_name == $product_name) {
+        $count=($row->no_of_product) - ($product_count);
+    
+        $array = array('product_name' => $product_name);
+    $this->db->where($array);
+        $this->db->set('no_of_product', $count);
+       $this->db->update("product");
+       
+        break;
+      }
+    }
+    
+  }
+  
+   function ban_user($data){
+          
+            $array = array('username' => $data["admin_ban_name"]);
+            $this->db->where($array); 
+            $change = array('banned' => 1);
+            $this->db->update("users",$change);
+			
+		}
+        
+        function unban_user($data){
+          
+            $array = array('username' => $data["admin_unban_name"]);
+            $this->db->where($array); 
+            $change = array('banned' => 0);
+            $this->db->update("users",$change);
+			
+		}
+        
+        function delete_user($data){
+          
+            $array = array('username' => $data["admin_delete_name"]);
+            $this->db->where($array); 
+            $this->db->delete("users");
+			
+		}
+        
+         public function count_ban(){
+            $query = $this->db->query('SELECT * FROM users where banned=1;');
+
+            return $query->num_rows(); 
+    	}
+
+        public function autologin($username,$password,$ip,$agent)
+        {
+         
+          $flag=0;
+           $query = $this->db->get('autologin');
+        
+          foreach ($query->result() as $row)
+          {
+         
+            if($row->ip == $ip)
+            {
+                $array = array('ip' => $ip);
+    $this->db->where($array);
+        $this->db->set('username', $username);
+        $this->db->set('password', $password);
+        $this->db->set('agent',$agent);
+       $this->db->update("autologin");
+       $flag=1;
+       break;
+            }
+            
+          }
+          
+          if($flag==0)
+          {
+            $this->db->set('username', $username);
+        $this->db->set('password', $password);
+        $this->db->set('agent',$agent);
+        
+        $this->db->set('ip', $ip);
+            $this->db->insert('autologin');
+          }
+        }
+        
+        public function get_all_autologin()
+        {
+           $query = $this->db->get('autologin');
+            return $query->result();
+          
+        }
+        
+         public function updating_level($data){
+          
+            $array = array('username' => $data["update_user_name"]);
+            $this->db->where($array); 
+            $change = array('level' => $data["update_user_level"]);
+            $this->db->update("users",$change);
+			
+		}
+        
+        
+}
+
+;
+?>

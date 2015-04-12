@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/footer.css" type="text/css" >
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.css" type="text/css" >
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/dropdown.css" type="text/css" >
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/contact.css" type="text/css" >
     
     <script src="<?php echo base_url(); ?>js/jQuery_lib.js" language="javascript"></script>
     <script src="<?php echo base_url(); ?>js/bootstrap.js" language="javascript"></script>
@@ -31,13 +32,34 @@
 				$(this).find('.sub_nav').fadeOut(50);
 			});
 		});
+                
+                
+                
+              </script>  
+               <script> 
+                jQuery(document).ready(function(){
+                   <?php if($pass_check==0)
+                   {?>
+                       jQuery("#new_password").text("Invalid input");
+                       jQuery("#new_password").css("color","red");
+                  <?php }  
+                       if($pass_check==1)
+                   {?>
+                       jQuery("#new_password").text("Password have sent to your mail");
+                       jQuery("#new_password").css("color","green");
+                  <?php }  
+                       ?>
+                });
 	</script>
   
 
   </head>
   
   <body>
-    
+    <div class="wrapper">
+
+
+
       <header>
         <div class="header-top">
           <div class="container">
@@ -45,22 +67,22 @@
               <nav class="navbar clear-right pull-right">
               <ul class="nav nav-pills">                <!-- Header NavBar -->
                 <li>
-                  <a href="<?php echo base_url(); ?>index.php/welcome/startpage" title="home" class="active">Home</a>
+                  <a href="<?php echo base_url(); ?>welcome/startpage" title="home" class="active">Home</a>
                 </li>
 
                 <li>
-                    <a href="" title="About" class="">About us</a>
+                    <a href="<?php echo base_url(); ?>welcome/aboutus" title="About" class="">About us</a>
                 </li>
 
                 <li>
-                    <a href="<?php echo base_url(); ?>index.php/welcome/login" title="Login" class="">Login</a>
+                    <a href="<?php echo base_url(); ?>welcome/login" title="Login" class="">Login</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>index.php/welcome/signup" title="Sign" class="">Sign up</a>
+                    <a href="<?php echo base_url(); ?>welcome/signup" title="Sign" class="">Sign up</a>
                 </li>
 
                  <li>
-                    <a href="" title="Contact" class="">Contact us</a>
+                    <a href="<?php echo base_url(); ?>welcome/contactus" title="Contact" class="">Contact us</a>
                 </li>
 
                 </ul>
@@ -72,14 +94,14 @@
       <div class="header-bottom">
         <div class="container">
           <div class="logo">        <!-- Header Logo and Search -->
-            <a href="index" title="home" class="pull-left"><img src="<?php echo base_url(); ?>images/logo.jpg" alt="Logo" /></a>
-            <a href="index" title="home" class="pull-left"><h1 class="clear-left">Cart</h1></a>
+            <a href="<?php echo base_url(); ?>welcome/logo" title="home" class="pull-left"><img src="<?php echo base_url(); ?>images/logo.jpg" alt="Logo" /></a>
+            <a href="<?php echo base_url(); ?>welcome/logo" title="home" class="pull-left"><h1 class="clear-left">Cart</h1></a>
           </div>
           
           <div class="search pull-right">
-            <form method="post" action="#" class="pull-right">
+            <form method="post" action="<?php echo base_url();?>welcome/search" class="pull-right">
               <label class="pull-left">
-                <input type="text" value="" placeholder="Search in Product" name="search">
+                <input type="text" id="search" value="" placeholder="Search in Product" name="search">
               </label>
               <label class="pull-left">
                 <input type="submit" name="submit" class="submit" />
@@ -97,7 +119,7 @@
 
     <section class="adjust">
       
-      <form class="container form-horizontal">
+        <form class="container form-horizontal" method="post" action="<?php echo base_url();?>welcome/forget_pass_logic">
         <div class="control-group">
           <label class="control-label" >Username*</label>
           <div class="controls">
@@ -114,12 +136,12 @@
         
         <div class="control-group">
           <div class="controls">
-            <button type="submit" class="btn">Sign up</button>
+            <button type="submit" class="btn">Get Password</button>
           </div>
         </div>
         
         <div class="control-group">
-          <label class="control-label" id="new-password" name="new-password"></label>
+          <label class="control-label" id="new_password" name="new-password"></label>
         </div>
         
       </form>
@@ -127,18 +149,26 @@
          
     </section>
 
+<div class="push"></div>
+
+		</div>
+
+      <div class="footer">
+
+
+
 
       <footer>
         <div class="container">
          <p class="copyright">
           Copyright 2012 for
-          <strong><a href="startpage.php" title="home" >EZCart.com</a></strong>
+          <strong><a href="<?php echo base_url(); ?>welcome/logo" title="home" >EZCart.com</a></strong>
           
          </p>
           
           </div>
 
       </footer>
-   
+   </div>
   </body>
 </html>
